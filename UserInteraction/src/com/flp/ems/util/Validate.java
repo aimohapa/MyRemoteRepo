@@ -1,5 +1,7 @@
 package com.flp.ems.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,7 +11,7 @@ public class Validate {
 	public static boolean validatename(String Name){
 		
 		 String newname=Name;
-		if(newname.equals(null))
+		if(newname.equals(""))
 		{
 			System.out.println("name is invalid");
 			return false;
@@ -44,16 +46,16 @@ public static boolean validateKinId(String KinId){
 			return true;
 
 	   } // end method validatePhone
-	 
+	
 	 public static boolean validateEmailId( String emailId )
 	   {
-		 String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-		 Boolean b = emailId.matches(EMAIL_REGEX);
-	      
-		 return b;
+		 String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+			java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+			java.util.regex.Matcher m = p.matcher(emailId);
+			return m.matches();
 	   } 
 	 
-	 public static boolean validateAddrerss(String address){
+	 public static boolean validateAddress(String address){
 		 
 		  if (address.length() > 10) 
 				return true;
@@ -61,19 +63,30 @@ public static boolean validateKinId(String KinId){
 			return false;
 			
 	 }
-		public static boolean validatedate(String d){
+	 public static boolean validatedate(String dateToValidate, String dateFromat){
 			
-			 Pattern dateFrmtPtrn =
-	            Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)");
-		
-		Matcher mtch = dateFrmtPtrn.matcher(d);     
-			if(mtch.matches()){
-				System.out.println("valid date");
-		           return true;
-		       }
-			System.out.println("Invalid date");
-			return false;
+			if(dateToValidate == null){
+				return false;
+			}
+			
+			SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+			sdf.setLenient(false);
+			
+			try {
+				
+				//if not valid, it will throw ParseException
+				Date date = sdf.parse(dateToValidate);
+				System.out.println(date);
+			
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+				return false;
+			}
+			
+			return true;
 		}
+
 }
        
 	

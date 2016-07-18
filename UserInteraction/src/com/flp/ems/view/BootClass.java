@@ -4,19 +4,30 @@ import java.util.Scanner;
 
 public class BootClass {
 
-	
+	static UserInteraction u =new UserInteraction();
+	 static Scanner sc = new Scanner(System.in);
+	 private static int a=0;
 	public static void main(String[] args){
 		
-		UserInteraction u =new UserInteraction();
-		System.out.println("Choose option for Transaction");
-		System.out.println("choose '1' to add employee");
-		System.out.println("choose '2' to modify employee");
-		System.out.println("choose '3' to remove employee");
-		System.out.println("choose '4' to search employee");
-		System.out.println("choose '5' to search getALL data");
+		menu();
 		
-		Scanner sc = new Scanner(System.in);
-		int a = sc.nextInt();
+		
+	}	
+	
+	private static void menu() {
+	
+		while(true)
+		{
+		
+		System.out.println("Choose option for Transaction");
+		System.out.println("choose 1 to add employee");
+		System.out.println("choose 2 to modify employee");
+		System.out.println("choose 3 to remove employee");
+		System.out.println("choose 4 to search employee");
+		System.out.println("choose 5 to search getALL data");
+		System.out.println("choose 6 to exit");
+		
+	 a = sc.nextInt();
 	switch(a)
 		{
 			case 1:
@@ -35,9 +46,15 @@ public class BootClass {
 			case 5:
 				u.getAllEmployee();
 				break;
-				
+			case 6:
+				System.exit(0);
+				break;
 			
 		}
+	
 		
-		}
+	}
+	}
 }
+		
+

@@ -2,12 +2,14 @@ package com.flp.ems.service;
 
 import java.util.HashMap;
 
+import com.flp.ems.domain.Employee;
+
 public interface IEmployeeService {
 	
 	public void AddEmployee(HashMap hm);
-	public void ModifyEmployee(String a);
+	public void ModifyEmployee(HashMap hm,String a,int ch);
 	public void RemoveEmployee(String a);
-	public void SearchEmployee(String a);
-	public void getallEmployee(HashMap hm);
+	public Employee SearchEmployee(String name,String email,String kinid);
+	public void getallEmployee();
 
 }

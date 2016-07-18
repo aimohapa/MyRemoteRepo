@@ -24,8 +24,7 @@ public class Employee {
 	
 	public String getName() {
 		
-		//System.out.println("Validation for name :"+v.validatename(Name));
-		System.out.println(Name);
+		
 		return Name;
 	}
 	public void setName(String name) {
@@ -34,8 +33,8 @@ public class Employee {
 	}
 	
 	
-	public String getKinId() {
-		System.out.println(KinId);
+	public  String getKinId() {
+		
 		return KinId;
 	}
 	public void setKinId(String kinId) {
@@ -45,8 +44,8 @@ public class Employee {
 		
 	public String getEmailid() {
 		
-		//System.out.println("Validation for emailId :"+v.validateEmailId(emailid));
-		System.out.println(emailid);
+		
+		
 		return emailid;
 	}
 	public void setEmailid(String emailid) {
@@ -56,8 +55,8 @@ public class Employee {
 	
 	public String getPhoneno() {
 		
-		//System.out.println("Validation for Phone no. :"+v.validatePhone(Phoneno));
-		System.out.println(Phoneno);
+		
+		
 		return Phoneno;
 	}
 	public void setPhoneno(String phoneno) {
@@ -67,8 +66,8 @@ public class Employee {
 	
 	public String getAddress() {
 		
-		//System.out.println("Validation for address :"+v.validateAddrerss(Address));
-		System.out.println(Address);
+		
+		
 		return Address;
 	}
 	public void setAddress(String address) {
@@ -78,8 +77,8 @@ public class Employee {
 	
 	public String getDateofbirth() {
 		
-		System.out.println("Validation for date of birth :"+v.validatedate(Dateofbirth));
-		System.out.println(Dateofbirth);
+		
+		
 		return Dateofbirth;
 	}
 	public void setDateofbirth(String dateofbirth) {
@@ -90,8 +89,8 @@ public class Employee {
 	
 	public String getDateofJoining() {
 		
-		System.out.println("Validation for date of joining  :"+v.validatedate(DateofJoining));
-		System.out.println(DateofJoining);
+		
+		
 		return DateofJoining;
 	}
 	public void setDateofJoining(String dateofJoining) {
@@ -99,28 +98,28 @@ public class Employee {
 	}
 	
 	public int getDepartmentid() {
-		System.out.println(Departmentid);
+		
 		return Departmentid;
 	}
 	public void setDepartmentid(int departmentid) {
-		Department d= new Department();
-	departmentid = d.departmentid;
+		
+	Departmentid=departmentid;
 	}
 	public int getProjectid() {
-		System.out.println(Projectid);
+		
 		return Projectid;
 	}
 	public void setProjectid(int projectid) {
-		Project p= new Project();
-		projectid = p.projid;
+	
+		 Projectid=projectid;
 	}
 	public int getRolesid() {
-		System.out.println(Rolesid);
+		
 		return Rolesid;
 	}
-	public void setRolesid(int Rolesid) {
-		Role r = new Role();
-		Rolesid = r.roleid;
+	public void setRolesid(int rolesid) {
+		
+		 Rolesid=rolesid;
 	}
 	
 	
@@ -128,38 +127,48 @@ public class Employee {
 		public String toString() {
 			return "Employee [Name=" + Name + ", KinId=" + KinId + ", emailid=" + emailid + ", Phoneno=" + Phoneno
 					+ ", Address=" + Address + ", Dateofbirth=" + Dateofbirth + ", DateofJoining=" + DateofJoining
-					+ ", Departmentid=" + Departmentid + ", Projectid=" + Projectid + ", Rolesid=" + Rolesid + "]";
-		}
-	 @Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
-			result = prime * result + ((KinId == null) ? 0 : KinId.hashCode());
-			return result;
-		}
+					+ ", Departmentid=" + Departmentid + ", Projectid=" + Projectid + ", Rolesid=" + Rolesid + "]";		}
+
 	 
-	 @Override
-		public boolean equals(Object obj) {
-			if (this == obj)
+	 
+	 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((KinId == null) ? 0 : KinId.hashCode());
+		result = prime * result + ((emailid == null) ? 0 : emailid.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null)
+		{
+			System.out.println("null creation");
+		}
+		if(obj instanceof Employee)
+		{
+			
+			Employee ep=(Employee)obj;
+			if((this.getKinId().equals(ep.getKinId()))) // (this.getEmailid().equals(ep.getEmailid()))))
+			{
+				System.out.println("same kin_id found");
 				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Employee other = (Employee) obj;
-			if (emailid == null) {
-				if (other.emailid != null)
-					return false;
-			} else if (!emailid.equals(other.emailid))
-				return false;
-			if (KinId == null) {
-				if (other.KinId != null)
-					return false;
-			} else if (!KinId.equals(other.KinId))
-				return false;
-			return true;
+			}
+			else if((this.getEmailid().equals(ep.getEmailid())))
+			{
+				System.out.println("same Email_id found");
+				return true;
+			}
+			else if((this.getKinId().equals(ep.getKinId())) && (this.getEmailid().equals(ep.getEmailid())))
+			{
+				System.out.println("same kinid and emailid");
+				return true;
+			}
+		}
+		//System.out.println("add some record first");
+		return false;
+	}
 		}
 	
 	
-}
