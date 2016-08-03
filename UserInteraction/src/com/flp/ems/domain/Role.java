@@ -10,7 +10,7 @@ public class Role {
 
 	public int getRoleid() {
 		
-		System.out.println("Role id:"+roleid);
+		
 		return roleid;
 	}
 
@@ -19,7 +19,7 @@ public class Role {
 	}
 
 	public String getName() {
-		System.out.println("Role name:"+name);
+		
 		return name;
 	}
 
@@ -28,7 +28,7 @@ public class Role {
 	}
 
 	public String getDesp() {
-		System.out.println("Role Description:"+desp);
+		
 		return desp;
 	}
 

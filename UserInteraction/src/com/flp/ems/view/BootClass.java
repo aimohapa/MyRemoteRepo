@@ -1,5 +1,6 @@
 package com.flp.ems.view;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class BootClass {
@@ -7,14 +8,14 @@ public class BootClass {
 	static UserInteraction u =new UserInteraction();
 	 static Scanner sc = new Scanner(System.in);
 	 private static int a=0;
-	public static void main(String[] args){
+	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		
 		menu();
 		
 		
 	}	
 	
-	private static void menu() {
+	private static void menu() throws ClassNotFoundException, SQLException {
 	
 		while(true)
 		{
@@ -24,7 +25,7 @@ public class BootClass {
 		System.out.println("choose 2 to modify employee");
 		System.out.println("choose 3 to remove employee");
 		System.out.println("choose 4 to search employee");
-		System.out.println("choose 5 to search getALL data");
+		System.out.println("choose 5 to getALL data");
 		System.out.println("choose 6 to exit");
 		
 	 a = sc.nextInt();

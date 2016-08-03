@@ -10,7 +10,7 @@ public class Project {
 	
 	public int getDepid() {
 		
-		System.out.println("Department id:"+depid);
+		
 		return depid;
 	}
 	public void setDepid(int depid) {
@@ -19,7 +19,7 @@ public class Project {
 	}
 	public int getProjid() {
 		
-		System.out.println("Project id:"+projid);
+		
 		return projid;
 	}
 	public void setProjid(int projid) {
@@ -27,7 +27,7 @@ public class Project {
 	}
 	public String getName() {
 		
-		System.out.println("Project name:"+name);
+		
 		return name;
 	}
 	public void setName(String name) {
@@ -35,7 +35,7 @@ public class Project {
 	}
 	public String getDesp() {
 		
-		System.out.println("Project description:"+desp);
+		
 		return desp;
 	}
 	public void setDesp(String desp) {

@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.flp.ems.domain.Department;
 import com.flp.ems.domain.Employee;
+import com.flp.ems.domain.Project;
+import com.flp.ems.domain.Role;
 import com.flp.ems.util.Validate;
 
-public class EmployeeDaoImplForList implements IemployeeDao 
+/*public class EmployeeDaoImplForList implements IemployeeDao 
 {
 	List<Employee> emparrlist = new ArrayList<Employee>();
 	List<Employee> department = new ArrayList<Employee>();
@@ -18,7 +21,7 @@ public class EmployeeDaoImplForList implements IemployeeDao
 	List<Employee> role = new ArrayList<Employee>();
 
 	@Override
- public Employee AddEmployee(Employee e)
+ public Employee AddEmployee(Employee e,Department d,Project p,Role r)
 {
 	  	  
 	  emparrlist.add(e);
@@ -192,4 +195,4 @@ public void getallEmployee()
 	
 	
 
-}
+}*/

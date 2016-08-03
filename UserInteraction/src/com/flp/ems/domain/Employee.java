@@ -9,8 +9,9 @@ public class Employee {
 	
 	String Name;
 	 String KinId ;
+	 int empid;
 	
-	 String emailid; 
+	String emailid; 
 	 String Phoneno;
 	 String Address;
 	 String Dateofbirth;
@@ -22,13 +23,27 @@ public class Employee {
 	
 	Validate v = new Validate();
 	
+	 public int getEmpid() {
+			return empid;
+		}
+		public void setEmpid(int empid) {
+			this.empid = empid;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
 	public String getName() {
 		
 		
 		return Name;
 	}
-	public void setName(String name) {
-		Name = name;
+	public String setName(String name) {
+		 return(Name = name);
 		
 	}
 	
@@ -37,8 +52,8 @@ public class Employee {
 		
 		return KinId;
 	}
-	public void setKinId(String kinId) {
-		KinId = kinId;
+	public String setKinId(String kinId) {
+		return(KinId = kinId);
 	}
 	
 		

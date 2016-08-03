@@ -1,8 +1,13 @@
 package com.flp.ems.view;
 
 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -12,6 +17,8 @@ import com.flp.ems.domain.Project;
 import com.flp.ems.domain.Role;
 import com.flp.ems.service.EmployeeServiceImpl;
 import com.flp.ems.util.Validate;
+import com.mysql.jdbc.Connection;
+
 import java.util.UUID;
 
 
@@ -27,22 +34,23 @@ public class UserInteraction {
 
 	public String ad;
 
-	public String EmpId;
+	public int EmpId;
 	
 	public String dob;
 
 	public String doj;
 	
+	Random r = new Random();
+	
+	
 	String e,name,email,kin;
-	int did=100;
-	int projid=200;
-	int roleid=300;
+	
 	HashMap mapStudent = new HashMap<>();
 		
 	Scanner sc = new Scanner(System.in);
 	EmployeeServiceImpl k= new EmployeeServiceImpl();
 	
-	public void AddEmployee(){
+	public void AddEmployee() throws ClassNotFoundException, SQLException{
 		System.out.println("Enter no of data to be entered ");
 		int n = sc.nextInt();
 		Scanner sc = new Scanner(System.in);
@@ -55,9 +63,9 @@ public class UserInteraction {
 			 nm = sc.next();
 			
 			
-			 EmpId = UUID.randomUUID().toString();
+			 EmpId = r.nextInt();
 			
-			System.out.println(EmpId);
+			System.out.println("Employee id"+EmpId);
 			
 			System.out.println("Enter the KinId");
 			 ki = sc.next();
@@ -90,7 +98,7 @@ public class UserInteraction {
 			
 			int a = 0;
 			a=sc.nextInt();
-			switch(a)
+	switch(a)
 			{
 			
 			case 1:
@@ -99,42 +107,34 @@ public class UserInteraction {
 				System.out.println("Enter 5 for cards");
 				int ch=0;
 				ch=sc.nextInt();
-				switch(ch){
+			switch(ch){
 				case 3:
 					
-					e.setDepartmentid(did);
-					did++;
+					e.setDepartmentid(100);
+					e.setProjectid(111);
 					
+					e.setRolesid(301);
 					
-					e.setProjectid(projid);
-					projid++;
-					
-					e.setRolesid(roleid);
-					roleid++;
 					break;
 					
 				case 4:
 					
-					e.setDepartmentid(did);
-					did++;
+					e.setDepartmentid(101);
+				
+					e.setProjectid(112);
+							
+					e.setRolesid(302);
 					
-					
-					e.setProjectid(projid);
-					projid++;
-					
-					e.setRolesid(roleid);
-					roleid++;
 					break;
 					
 					
 				case 5:
 					
-					e.setDepartmentid(did);
-					did++;
-					e.setProjectid(projid);
-					projid++;
-					e.setRolesid(roleid);
-					roleid++;
+					e.setDepartmentid(102);
+					e.setProjectid(113);
+							
+					e.setRolesid(303);
+					
 					break;
 					
 				}
@@ -142,17 +142,17 @@ public class UserInteraction {
 						
 			case 2:
 				
-				e.setDepartmentid(did);
-				did++;
-				e.setProjectid(projid);
-				projid++;
-				e.setRolesid(roleid);				
-				roleid++;
+				e.setDepartmentid(201);
+				
+				e.setProjectid(114);
+						
+				e.setRolesid(304);				
+				
 			break;
 			}
 		
 			 
-			 
+			 e.setEmpid(12345);
 			 int de = e.getDepartmentid();
 			 System.out.println(de);
 			 int pe = e.getProjectid();
@@ -161,6 +161,7 @@ public class UserInteraction {
 			 System.out.println(re);
 			 	mapStudent.put("Kinid",ki);
 				mapStudent.put("Emailid",ei);
+				mapStudent.put("Empid", EmpId);
 				mapStudent.put("Name", nm);
 				mapStudent.put("Phone", pn);
 				mapStudent.put("Address", ad);
@@ -183,14 +184,31 @@ public class UserInteraction {
 		}
 	}
 
-	public void ModifyEmployee(){
+	public void ModifyEmployee() throws ClassNotFoundException, SQLException{
+		
+		
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test");
+		System.out.println("Search by kinid");
 		
 		System.out.println("kin_id");
 		String empId;
 		empId=sc.next();
-		Employee emp=k.SearchEmployee("*","*", empId);
-		if(emp!=null)
-		{ 	
+		
+	
+		PreparedStatement stmt1=con.prepareStatement("select * from EMPLOYEES inner join DEPARTMENT on EMPLOYEES.DEP_ID=DEPARTMENT.DEP_ID inner join ROLE on EMPLOYEES.ROLE_ID=ROLE.ROLE_ID inner join PROJECT on EMPLOYEES.PROJ_ID=PROJECT.PROJ_ID where EMPLOYEES.KIN_ID=?");
+		
+		 
+		 stmt1.setString(1,empId);
+		
+		ResultSet rs = stmt1.executeQuery();
+		while (rs.next()) {
+			
+	    	System.out.println("   RECORD FOUND  ");
+		
+	    	 		
+	    	
 					HashMap empModifiedDetails=new HashMap();
 					System.out.println("Modify Employee by:");
 					System.out.println("1.Modify  Name:");
@@ -199,7 +217,7 @@ public class UserInteraction {
 					System.out.println("4.Modify  Address:");
 					System.out.println("5.Modify  phone number:");
 					System.out.println("6.Modify  Date of birth:");
-					System.out.println("7.Modify  Date of joinig:");
+					System.out.println("7.Modify  Date of joining:");
 					
 					System.out.println("Enter ur choice:"); 	
 					int ch=sc.nextInt();
@@ -208,58 +226,54 @@ public class UserInteraction {
 					{
 						case 1:System.out.println("Enter The name");
 							empModifiedDetails.put("empName", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 						case 2:
 							System.out.println("Enter The email");
 							empModifiedDetails.put("email", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 						case 3:
 							System.out.println("Enter The empId");
 							empModifiedDetails.put("Kini", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 						case 4:
 							System.out.println("Enter The Address");
 							empModifiedDetails.put("Addr", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 						case 5:
 							System.out.println("Enter The Phone number");
 							empModifiedDetails.put("Phon", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 						case 6:
 							System.out.println("Enter The date of birth");
 							empModifiedDetails.put("dateob", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 						case 7:
 							System.out.println("Enter The date of joining");
 							empModifiedDetails.put("dateoj", sc.next());
-							k.ModifyEmployee(empModifiedDetails,empId,ch);
+							
 							break;
 					   		
 					}
-		
+					k.ModifyEmployee(empModifiedDetails,empId,ch);
 		}
 
 		
 	}
 
-	public void RemoveEmployee(){
+	public void RemoveEmployee()throws ClassNotFoundException, SQLException{
 		System.out.println("Enter the kin id to remove the data");
 		e=sc.next();	
 		k.RemoveEmployee(e);
 	}
-//	public void SearchEmployee(){
-//		System.out.println("Enter the employee id to search the data");
-//		 e=sc.next();	
-//		k.SearchEmployee(e);
-//	}
+
 	
-	public Employee  SearchEmployee() {
+	public Employee  SearchEmployee()throws ClassNotFoundException,SQLException{
 		System.out.println("Enter option \n 1.name only \n2.email id \n3.kinid  \n4.name & email \n5.name & kinid \n6.email and kinid \n7.name email and kinid three");
 		int opt = sc.nextInt();
 		switch(opt)
@@ -297,7 +311,7 @@ public class UserInteraction {
 			System.out.println("enter  name  and kin id to be searched");
 			System.out.println("Enter Name to be searched");
 			name=sc.next();
-			System.out.println("enter email to be searched");
+			System.out.println("enter kinid to be searched");
 			kin=sc.next();
 			
 			return k.SearchEmployee(name,"*",kin);
@@ -330,7 +344,7 @@ public class UserInteraction {
 	
 	
 	
-	public void getAllEmployee(){
+	public void getAllEmployee()throws ClassNotFoundException,SQLException{
 		
 		
 		k.getallEmployee();
